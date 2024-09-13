@@ -36,6 +36,8 @@ def main():
         # Classify the skin tone
         skin_tone = classify_skin_tone(img)
 
+        st.write(skin_tone)
+
         # Display the result with the country
         if skin_tone in ["dark", "mid-dark"]:
             st.write("Predicted Country: **Nigga**")
