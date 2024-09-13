@@ -8,18 +8,28 @@ from huggingface_hub import hf_hub_download
 try:
     model_path = hf_hub_download(repo_id="mandarchaudharii/skin_tone_detection", filename="skin_tone_model.h5")
     model = load_model(model_path)
+    st.write("Model loaded successfully!")
 except Exception as e:
     st.error(f"Error loading the model: {e}")
 
 # Function to classify skin tone from an image
 def classify_skin_tone(image):
-    resized_img = cv2.resize(image, (224, 224))
-    resized_img = np.expand_dims(resized_img, axis=0)
-    resized_img = resized_img / 255.0  # Normalize the image
+    resized_img = cv2.resize(image, (224, 224))  # Resize image to model input size
+    resized_img = np.expand_dims(resized_img, axis=0)  # Add batch dimension
+    resized_img = resized_img / 255.0  # Normalize image
+
+    # Get model prediction
     prediction = model.predict(resized_img)
     
+    # Define class labels
     classes = ["dark", "mid-dark", "mid-light", "light"]
-    return classes[np.argmax(prediction)], prediction
+    
+    # Debug: Print the raw prediction probabilities
+    st.write(f"Raw prediction probabilities: {prediction}")
+
+    # Return the class with the highest probability
+    predicted_class = classes[np.argmax(prediction)]
+    return predicted_class, prediction
 
 def main():
     st.title("Skin Tone Detection")
