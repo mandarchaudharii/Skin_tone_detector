@@ -2,12 +2,16 @@ import cv2
 import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
+from huggingface_hub import hf_hub_download
+
+# Load the model from Hugging Face
+model_path = hf_hub_download(repo_id="mandarchaudharii/skin_tone_detection", filename="skin_tone_model.h5")
+
+# Load the .h5 model using TensorFlow/Keras
+modelh = load_model(model_path)
 
 # Load your pre-trained model from Huggingface (you may need to replace this path with the Huggingface model loading code)
 @st.cache_resource
-def load_model_from_huggingface():
-    model = load_model("https://huggingface.co/mandarchaudharii/skin_tone_detection/skin_tone_model.h5")
-    return model
 
 # Function to classify skin tone from an image
 def classify_skin_tone(image, model):
@@ -25,7 +29,7 @@ def main():
     st.title("Live Skin Tone Detector")
 
     # Load model
-    model = load_model_from_huggingface()
+    model = modelh
 
     # Access the webcam
     run = st.checkbox('Run')
