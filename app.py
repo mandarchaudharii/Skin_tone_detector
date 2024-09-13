@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 from huggingface_hub import hf_hub_download
 
 # Download the model from Hugging Face
-model_path = hf_hub_download(repo_id="your-username/skin-tone-detection", filename="skin_tone_model.h5")
+model_path = hf_hub_download(repo_id="mandarchaudharii/skin_tone_detection", filename="skin_tone_model.h5")
 
 # Load the model
 model = load_model(model_path)
