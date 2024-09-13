@@ -32,7 +32,7 @@ def classify_skin_tone(image):
         classes = ["dark", "mid-dark", "mid-light", "light"]
         
         # Return the class with the highest probability
-        predicted_class = classes[np.argmax(prediction)]
+        predicted_class = classes[np.argmax(prediction, axis=1)]
         
         # Debugging: Display prediction probabilities
         st.write(f"Raw prediction probabilities: {prediction}")
